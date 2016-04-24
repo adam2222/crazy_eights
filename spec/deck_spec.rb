@@ -4,6 +4,7 @@ require 'deck'
 
 describe '#initialize' do
   subject(:new_deck) { Deck.new }
+  let(:suits) {[:hearts, :spades, :clubs, :diamonds]}
 
   it "creates a deck of 52 cards" do
     expect(new_deck.count).to eq(52)
@@ -11,7 +12,9 @@ describe '#initialize' do
 
   it "creates a deck of Card objects" do
     expect(new_deck.cards[0]).to be_a(Card)
+    expect(suits).to include(new_deck.cards[0].suit)
   end
+
 
 end
 
