@@ -31,5 +31,9 @@ class Deck
       @cards.shuffle
   end
 
-  
+  def refill_deck(discard_pile)
+    cards = game.discard_pile.shuffle
+    game.discard_pile = [] 
+  end
+
 end

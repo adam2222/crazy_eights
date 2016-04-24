@@ -30,8 +30,10 @@ class Player
         retry
       end
 
+      game.selected_suit = nil
       game.discard(card)
       @hand.delete(card)
+      select_next_suit if card.value == :eight
   end
 
   def pay(points)
@@ -53,11 +55,8 @@ class Player
   end
 
   def select_next_suit
-    puts "Choose next card rank or just press return"
-    next_value = gets.chomp
-    return next_value unless next_value == ""
     puts "Choose next card suit"
-    gets.chomp
+    game.selected_suit = gets.chomp.to_sym
   end
 
   def display_hand

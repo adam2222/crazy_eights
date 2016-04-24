@@ -5,7 +5,7 @@ require_relative 'player'
 require 'io/console'
 
 class Game
-attr_accessor :deck, :players, :discard_pile, :allowed_moves
+attr_accessor :deck, :players, :discard_pile, :allowed_moves, :selected_suit
 
   def initialize(players, deck = Deck.new)
     @deck = deck
@@ -47,6 +47,7 @@ attr_accessor :deck, :players, :discard_pile, :allowed_moves
     @move_count += 1
     puts "#{current_player.name}'s turn"
 
+    refill_deck if deck.cards.empty?
     while no_moves_available?(current_player.hand)
       puts "No moves available.  Card drawn from deck:"
       card = deck.take(1)
@@ -55,6 +56,10 @@ attr_accessor :deck, :players, :discard_pile, :allowed_moves
     end
 
     current_player.make_move
+  end
+
+  def refill_deck
+      deck.cards
   end
 
   def round_winner
@@ -93,17 +98,28 @@ attr_accessor :deck, :players, :discard_pile, :allowed_moves
   def display_discard_pile
     puts "_________________"
     puts "Discard pile:"
-    top_card = discard_pile.last
-    puts "#{top_card.value} of #{top_card.suit} "
+
+    if !selected_suit.nil?
+      puts "#{selected_suit}"
+    else
+      top_card = discard_pile.last
+      puts "#{top_card.value} of #{top_card.suit} "
+    end
+
     puts "_________________"
   end
 
 
   def allowed?(card)
-    allowed_value = discard_pile.last.value
-    allowed_suit = discard_pile.last.suit
+    if !selected_suit.nil?
+      suit = selected_suit
+      card.value == :eight || card.suit == suit
+    else
+      allowed_value = discard_pile.last.value
+      allowed_suit = discard_pile.last.suit
 
-    card.value == :eight || card.value == allowed_value || card.suit == allowed_suit
+      card.value == :eight || card.value == allowed_value || card.suit == allowed_suit
+    end
   end
 
   def no_moves_available?(hand)
