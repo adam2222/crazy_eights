@@ -25,7 +25,7 @@ class Player
      @hand.reject!(card)
   end
 
-  def choose_card
+  def g
     puts "Choose next card rank or just press return"
     next_value = gets.chomp
     return next_value unless next_value == ""

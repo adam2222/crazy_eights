@@ -2,6 +2,7 @@
 require_relative 'deck'
 require_relative 'card'
 require_relative 'player'
+require 'io/console'
 
 class Game
 attr_accessor :deck, :center_pile, :allowed_moves
@@ -32,7 +33,6 @@ attr_accessor :deck, :center_pile, :allowed_moves
     allowed_suit = center_pile.last.suit
 
     card.value == :eight || card.value == allowed_value || card.suit == allowed_suit
-
   end
 
 

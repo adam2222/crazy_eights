@@ -12,3 +12,4 @@
 # The game ends as soon as one player has emptied their hand. That player collects a payment from each opponent equal to the point score of the cards remaining in that opponent's hand. Eights score 50, court cards 10 and all other cards face value. If the players run out of cards in the deck, the player with the lowest point score in their hand scores the difference between that hand and each opponent's hand.[1]
 #
 # The winner of the game is the first player to reach a specific amount of points. For two players it is 100pts, three players 150pts, four 200pts, five 250pts, six 300pts and for seven players 350pts.[citation needed] 1 eyed jacks are pick up five.
+f
