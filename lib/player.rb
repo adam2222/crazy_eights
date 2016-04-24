@@ -1,9 +1,12 @@
-class Player
-  attr_accessor :hand
+require_relative 'game'
 
-  def initialize(name = "Player#{n}")
+class Player
+  attr_accessor :hand, :name, :game
+
+  def initialize(name = "Player")
     @name  = name
     @hand = []
+    @game = nil
   end
 
   def points
@@ -16,16 +19,35 @@ class Player
     points
   end
 
-  def make_move(card)
-    # take card from player @hand[] and put in center_pile
-      # select card manually
-      raise "Move not allowed" unless game.allowed?(card)
-
-      game.center_pile << card
-     @hand.reject!(card)
+  def add_to_hand(card)
+    @hand.concat(card)
   end
 
-  def g
+  def make_move
+    # take card from player @hand[] and put in center_pile
+      # select card manually
+      display_hand
+      puts "select card number"
+      begin
+      card = select_card_from_hand(gets.chomp.to_i)
+
+      raise "Move not allowed" unless game.allowed?(card)
+    rescue
+      puts "Not allowed"
+      retry
+    end
+      game.discard(card)
+      @hand.delete(card)
+
+     display_hand
+     game.display_discard_pile
+  end
+
+  def select_card_from_hand(num)
+    hand[num]
+  end
+
+  def select_next_suit
     puts "Choose next card rank or just press return"
     next_value = gets.chomp
     return next_value unless next_value == ""
@@ -34,7 +56,15 @@ class Player
   end
 
   def display_hand
-    p hand
+    puts "_________________"
+    puts "Player hand:"
+    hand.each_with_index do |card, idx|
+      puts "#{idx}: #{card.value} of #{card.suit} "
+    end
   end
+
+end
+
+if __FILE__ == $PROGRAM_NAME
 
 end
