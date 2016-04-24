@@ -1,12 +1,41 @@
 require_relative 'game'
 
 class Player
-  attr_accessor :hand, :name, :game
+  attr_accessor :hand, :name, :game, :deck, :bank
 
   def initialize(name = "Player")
     @name  = name
     @hand = []
     @game = nil
+    @deck = nil
+    @bank = 0
+  end
+
+
+  def add_to_hand(card)
+    @hand.concat(card)
+  end
+
+  # take card from player @hand[] and put in center_pile
+  # select card manually
+  def make_move
+      display_hand
+      puts "select card number"
+
+      begin
+        card = select_card_from_hand(gets.chomp.to_i)
+        raise "Move not allowed" unless game.allowed?(card)
+      rescue
+        puts "Not allowed"
+        retry
+      end
+
+      game.discard(card)
+      @hand.delete(card)
+  end
+
+  def pay(points)
+      @bank += points
   end
 
   def points
@@ -17,30 +46,6 @@ class Player
     end
 
     points
-  end
-
-  def add_to_hand(card)
-    @hand.concat(card)
-  end
-
-  def make_move
-    # take card from player @hand[] and put in center_pile
-      # select card manually
-      display_hand
-      puts "select card number"
-      begin
-      card = select_card_from_hand(gets.chomp.to_i)
-
-      raise "Move not allowed" unless game.allowed?(card)
-    rescue
-      puts "Not allowed"
-      retry
-    end
-      game.discard(card)
-      @hand.delete(card)
-
-     display_hand
-     game.display_discard_pile
   end
 
   def select_card_from_hand(num)
