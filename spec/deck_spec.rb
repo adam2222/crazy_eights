@@ -1,4 +1,4 @@
-require "rspec"
+require 'rspec'
 require 'deck'
 
 
@@ -20,6 +20,17 @@ describe '#count' do
 
   it "returns the number of cards left in the deck" do
     expect(new_deck).to respond_to(:count)
+  end
+
+end
+
+describe  '#take(n)' do
+  subject(:take_n) { Deck.new.take(2) }
+
+  it 'returns an array of n cards from the deck' do
+    expect(take_n).to be_an(Array)
+
+    expect(take_n.count).to eq(2)
   end
 
 end

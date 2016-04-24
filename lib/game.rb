@@ -16,12 +16,12 @@ attr_accessor :deck, :center_pile, :allowed_moves
     @players.count
   end
 
-  def deal(@players)
-    @players.each do |player|
-      player.hand << deck.take(8)
-      deck.shuffle
-    end
-  end
+  # def deal(@players)
+  #   @players.each do |player|
+  #     player.hand << deck.take(8)
+  #     deck.shuffle
+  #   end
+  # end
 
   def flip_top_card(deck)
     center_pile << deck.take(1)
